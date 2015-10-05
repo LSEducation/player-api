@@ -123,6 +123,10 @@ var Froogaloop = (function(){
             value: params
         });
 
+        if (!(/^https?:\/\/player.vimeo.com/).test(target.src)) {
+            return false;
+        }
+
         target.contentWindow.postMessage(data, playerOrigin);
     }
 
@@ -208,7 +212,7 @@ var Froogaloop = (function(){
      * Retrieves stored callbacks.
      */
     function getCallback(eventName, target_id) {
-        if (target_id) {
+        if (target_id && eventCallbacks[target_id]) {
             return eventCallbacks[target_id][eventName];
         }
         else {
